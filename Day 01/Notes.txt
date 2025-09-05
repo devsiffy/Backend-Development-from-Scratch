@@ -1,0 +1,128 @@
+
+:: Day 01 ::
+
+===========================
+Node.js Project Setup Guide
+===========================
+
+This guide will help you:
+
+> Create a Node.js project  
+> Install Express and dotenv  
+> Set up a basic server  
+> Define GET routes for home, login, and signup  
+
+
+--------------------------
+1. Initialise package.json
+--------------------------
+
+Step 1: Open your terminal  
+Step 2: Go to your project folder using cd  
+Step 3: Run this command:
+
+  npm init -y
+
+This will create a file called package.json.  
+It stores project details and tracks installed packages.
+
+
+----------------------------
+2. Install Required Packages
+----------------------------
+
+You need to install two packages:
+
+> express — for creating the server and routes  
+> dotenv — for reading values from the .env file
+
+Run this command:
+
+  npm install express dotenv
+
+After this, you will see:
+
+> node_modules folder (contains installed code)  
+> package-lock.json file (tracks exact versions)  
+> express and dotenv listed in package.json
+
+
+-------------------
+3. Create .env File
+-------------------
+
+Create a file named:
+
+> .env
+
+Inside this file, write the port number like this:
+
+  PORT=3000
+
+This is a private file used for environment settings.
+
+
+---------------------
+4. Create Server File
+---------------------
+
+Create a file called:
+
+> index.js
+
+You already wrote the code here.  
+This file:
+
+> Loads dotenv to use .env settings  
+> Sets up Express server  
+> Adds 3 GET routes: "/", "/login", "/signup"  
+> Starts the server using the PORT from .env
+
+
+----------------------
+5. How GET Routes Work
+----------------------
+
+GET routes are used to respond to browser requests.
+
+In your file, you created:
+
+> "/"      - Home route (shows a simple message)  
+> "/login" - Login route (sends back HTML text)  
+> "/signup" - Signup route (sends back JSON data)
+
+When a user visits these URLs in the browser,  
+they will see the responses you defined.
+
+Example:
+
+> http://localhost:3000/       → shows home message  
+> http://localhost:3000/login  → shows login heading  
+> http://localhost:3000/signup → shows JSON message
+
+
+-------------------
+6. Start the Server
+-------------------
+
+To run your project, use this command in the terminal:
+
+  node index.js
+
+You should see:
+
+  Server is listening on 3000
+
+Now your server is working!
+
+
+==================
+Tips for Beginners
+==================
+
+> If you change code, restart the server to see updates  
+> Use res.send() for text or HTML  
+> Use res.json() for JSON data  
+> Do not share your .env file online  
+> Always test your routes in the browser or Postman
+
