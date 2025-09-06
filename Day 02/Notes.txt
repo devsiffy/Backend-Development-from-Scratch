@@ -1,0 +1,208 @@
+
+:: Day 02 ::
+
+===========
+What is API
+===========
+
+Let’s imagine you walk into a restaurant. You don’t go into the kitchen, right? 
+You ask the waiter, and they bring you the food. In the world of web development, 
+API is just like that waiter.
+
+API means "Application Programming Interface". 
+It allows the frontend (the customer) to ask the backend (the kitchen) for data or actions. 
+The backend does the work and sends the result back through the API.
+
+So when your website needs data like jokes, weather, or user details, 
+it makes a request to the backend using an API. 
+The backend sends back the data — and boom — the frontend updates!
+
+*** Interview Tip ***
+If someone asks, “What is an API?” — don’t say just the definition.
+Tell them it connects frontend and backend and helps them share data.
+
+
+=======================
+What is fetch and axios
+=======================
+
+Now the big question: how do we talk to APIs from the frontend?
+
+We use tools like: 
+    * fetch
+    * axios
+
+FETCH:
+- Built-in JavaScript tool (no installation needed)
+- Gets the job done, but:
+    → Needs more code to handle errors
+    → You must manually convert response to JSON
+
+AXIOS:
+- External library (you install it)
+- Like a smart assistant: does more work with less code
+
+Why is axios better?
+--------------------
+* Automatically turns data into JSON
+* Easier to write and read
+* Works better with errors
+* You can set headers and configs easily
+* Supports older browsers better than fetch
+
+→ So yes, you can use both, but axios gives you more comfort and safety, 
+  especially when you're a beginner.
+
+
+Using then() and catch() with axios get request
+-----------------------------------------------
+
+Let’s say you want to get jokes from the backend. Axios will help you send a GET request.
+
+Example:
+
+    axios.get("/api/jokes")
+      .then((res) => {
+        setJokes(res.data);
+      })
+      .catch((err) => {
+        console.log("Failed to fetch jokes:", err);
+      });
+
+Here’s what’s happening:
+
+* .get() sends a request to the backend.
+* .then() runs if the request is successful. It gives you the response.
+* .catch() runs if something goes wrong — like the server is off or the internet is down.
+
+TIP: In real life, always handle both success and failure. 
+     That’s a sign of a good developer.
+
+
+================================================
+Best practices of calling APIs and handling data
+================================================
+
+Here are some smart habits when using APIs:
+
+1. Use useEffect() to call the API only when the component loads.
+2. Save the data using useState() so React can update the UI.
+3. Always use .catch() to handle errors.
+4. Show a loading message while waiting for data.
+5. Don’t spam the server with requests. Call APIs only when needed.
+
+A simple structure looks like this:
+
+    - useState to store data
+    - useEffect to call the API once
+    - axios for the request
+    - then and catch to handle results
+
+→ This makes your frontend code neat and professional.
+
+
+============================================
+What is proxy, and how to setup and it works
+============================================
+
+Let’s say your frontend is running on port 5173 (React Vite app) 
+and your backend is running on port 3000 (Express server).
+
+Now, when you try to call this API:
+
+    axios.get("http://localhost:3000/api/jokes")
+
+The browser sees that you’re trying to talk to a DIFFERENT port (from 5173 to 3000). 
+It considers this a CROSS-ORIGIN REQUEST. And because of security rules, 
+the browser blocks it — unless the backend allows it. 
+That’s when you get a CORS error.
+
+So how do we fix it?
+
+Here comes the PROXY. You set it up in your vite.config.js file like this:
+
+    server: {
+      proxy: {
+        "/api": "http://localhost:3000",
+      },
+    }
+
+Now what happens?
+
+→ When your React app runs on port 5173 and you write:
+
+    axios.get("/api/jokes")
+
+It *looks* like you are calling your own domain (same origin), so the browser is happy 
+and doesn’t block it.
+
+But secretly, Vite sees that /api is a proxy rule. 
+So behind the scenes, it sends the request to:
+
+    http://localhost:3000/api/jokes
+
+So the browser NEVER KNOWS that the request is going to a different port. 
+From the browser’s point of view, it’s all happening on the same port — 5173.
+
+And this is why you don’t get a CORS error anymore.
+
+→ The proxy acts like a disguise — hiding the real backend URL from the browser, 
+   and making it look like everything is coming from the same place.
+
+That’s how proxy solves the CORS problem in development.
+
+
+==================
+What is CORS error
+==================
+
+CORS stands for Cross-Origin Resource Sharing. Sounds scary? It's just the browser being extra careful.
+
+Browsers want to protect your website from unknown sources. 
+So if your frontend is at one place (like port 5173), and your backend is at another (like port 3000), 
+the browser may block the request.
+
+This is called a CORS error. It basically says: 
+“Hey! You can’t talk to that other domain unless it allows you.”
+
+→ This error is super common in frontend-backend connections during development.
+
+
+Different ways to resolve CORS
+------------------------------
+
+So how do you fix CORS issues?
+
+There are 3 popular ways:
+
+1. USE PROXY IN FRONTEND (like we did with Vite config)
+    - Best for development.
+    - Keeps frontend and backend feeling like one.
+
+2. ENABLE CORS IN BACKEND
+    - You use a package like `cors` in Express.
+    - This tells backend: “It’s okay to talk to this frontend.”
+
+3. SET CORS HEADERS MANUALLY
+    - You can allow specific domains in backend.
+    - More secure and used in production.
+
+Comparison Table:
+
+    Method         | Where used  | Best for
+    -------------- | ----------- | ---------------------
+    Proxy          | Frontend    | Development
+    cors package   | Backend     | Development/Prod
+    Manual headers | Backend     | Advanced Production
+
+
+============ 
+Tips Summary
+============
+
+- API helps frontend and backend talk.
+- Use axios over fetch for easier and cleaner code.
+- Always handle both success and error with .then() and .catch().
+- Call APIs inside useEffect only once when the page loads.
+- Use useState to store the API result.
+- Setup a proxy to avoid CORS issues.
