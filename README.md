@@ -49,3 +49,34 @@ NOTE:- The "must_change.env" must require some changes;
    - What is CORS
    - Proxy setup in Vite
    - Backend solutions (cors package, headers)
+
+---
+
+<h3>📅 Day 03</h3>
+
+> _"Structure your data before you build — clean models lead to clean code."_
+
+1. **Data Modeling Basics**
+
+   - Object modeling purpose
+   - Benefits of early planning
+     <br />
+
+2. **Introduction to Mongoose**
+
+   - What is Mongoose
+   - Schemas and models
+     <br />
+
+3. **Project Structure & Naming Conventions**
+
+   - `models/` folder setup
+   - File naming patterns
+     <br />
+
+4. **Schema Definition Essentials**
+
+   - Field types and rules
+   - Common validations (required, unique, min, etc.)
+   - Timestamps for created/updated tracking
+   - Model Relationships: Using `ref` for associations

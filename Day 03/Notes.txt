@@ -1,0 +1,161 @@
+
+:: Day 03 ::
+
+======================================
+Data Modeling and Mongoose in Projects
+======================================
+
+--------------------------------------------
+What is data / object modeling for a project
+--------------------------------------------
+
+Data modeling means planning the structure of your data.
+
+We decide:
+    * What data we need
+    * What fields it will have
+    * How different data connect
+
+Example:
+    A blog needs:
+        - Users
+        - Posts
+        - Comments
+
+Each with its own fields.
+
+--------------------------------
+Start project with data modeling
+--------------------------------
+
+Before coding, plan your data first.
+
+Benefits:
+    * Clear structure
+    * Fewer mistakes
+    * Easier to manage later
+
+---------------------------
+What is mongoose and schema
+---------------------------
+
+Mongoose is a tool for MongoDB in Node.js.
+
+It helps define schemas:
+    * What fields the data has
+    * What type each field is
+    * Add rules and validations
+
+-------------------------------------
+Create models folder and naming files
+-------------------------------------
+
+Make a "models" folder.
+
+Inside it, make one file per model.
+
+Best name format:
+    * user.models.js
+    * post.models.js
+    * comment.models.js
+
+--------------------------------------------
+Using mongoose.Schema() and mongoose.model()
+--------------------------------------------
+
+    * mongoose.Schema() → Make schema
+    * mongoose.model()  → Make model from schema
+
+Example:
+
+    const mongoose = require("mongoose");
+
+    const UserSchema = new mongoose.Schema({
+        name: String,
+        email: String
+    });
+
+    const User = mongoose.model("User", UserSchema);
+
+-------------------------------
+Defining fields and validations
+-------------------------------
+
+Set type and rules for each field.
+
+Example:
+
+    const UserSchema = new mongoose.Schema({
+        name: {
+            type: String,
+            required: true
+        },
+        age: {
+            type: Number,
+            min: 18
+        },
+        email: {
+            type: String,
+            required: true,
+            unique: true
+        }
+    });
+
+Validations:
+    * required
+    * min / max
+    * match (for patterns)
+    * unique
+
+------------------
+What is timestamps
+------------------
+
+Timestamps add:
+    * createdAt
+    * updatedAt
+
+Add this when making schema:
+
+    const PostSchema = new mongoose.Schema({
+        title: String
+    }, {
+        timestamps: true
+    });
+
+------------------------------------
+How to define relations (references)
+------------------------------------
+
+Use `ref` to connect one model to another.
+
+Example:
+
+    const CommentSchema = new mongoose.Schema({
+        user: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User"
+        },
+        post: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Post"
+        },
+        message: String
+    });
+
+This links:
+    * user → User model
+    * post → Post model
+
+==========
+Quick Tips
+==========
+
+* Plan data first
+* Use mongoose for schemas
+* Keep models in models/ folder
+* Name files like user.models.js
+* Add validations to protect data
+* Use timestamps to track records
+* Use ref to link documents
+
