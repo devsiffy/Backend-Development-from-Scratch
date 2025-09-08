@@ -80,3 +80,20 @@ NOTE:- The "must_change.env" must require some changes;
    - Common validations (required, unique, min, etc.)
    - Timestamps for created/updated tracking
    - Model Relationships: Using `ref` for associations
+
+---
+
+<h3>📅 Day 04</h3>
+
+> _"Learning to write programs stretches your mind, and helps you think better."_
+
+1. **Data Modeling Practice**
+
+   - E-Commerce Store Schema Design
+   - Hospital Management System Schema Design
+     <br />
+
+2. **Exploring Mongoose Concepts**
+
+   - Review: `models/ecommerce/`
+   - Review: `models/hospital_management/`
