@@ -1,0 +1,117 @@
+=====================
+Day 05 - Mega Project
+=====================
+
+This is the 1st day of our mega back-end project. We are building this project by following a real professional development process used in software companies.
+
+
+Project Design
+--------------
+
+    → First, the design team creates the project screens (pages) using tools like Figma or any other design tool.
+
+    → The designers give us all the screens. These screens help us to understand how the website or app will look.
+
+
+Database Planning
+-----------------
+
+    → After getting the design, we start working on the database.
+
+    → We collect the required data and plan how to store and manage it.
+
+    → We create a data modeling diagram. This shows how the data will be structured and connected.
+
+    → In this project, the data model diagram is created using an online tool called Eraser.io.
+
+
+Create Project Folder
+---------------------
+
+    → Now, we create a folder for our project.
+
+    → Inside the folder, we start a new Node.js project using this command:
+
+        npm init
+
+    → This will create a file called package.json
+
+
+Create Standard File and Folder Structure
+-----------------------------------------
+
+    → We create the following folders and files. This is a common structure used by many companies:
+
+        public
+        public/temp
+        src
+        src/controllers
+        src/routes
+        src/utils
+        src/db
+        src/models
+        src/middlewares
+
+        src/index.js
+        src/constants.js
+        src/app.js
+        .env
+        .gitignore
+        .prettierrc
+        .prettierignore
+        README.md
+
+
+Install Development Tools
+-------------------------
+
+    → We install some tools that help developers while coding.
+
+    → To automatically restart the server when files are changed:
+
+        npm i -D nodemon
+
+    → To keep code formatting the same for all team members:
+
+        npm i -D prettier
+
+
+Setup .gitignore File
+---------------------
+
+    → The .gitignore file tells Git which files or folders to ignore.
+
+    → We use this online tool to generate a .gitignore file for Node.js projects:
+
+        https://www.toptal.com/developers/gitignore
+
+
+Configure Prettier
+------------------
+
+    → We create and configure two files:
+
+        .prettierrc          → for prettier rules
+        .prettierignore      → for files to ignore by prettier
+
+
+Edit package.json
+-----------------
+
+    → In the package.json file, we update two things:
+
+        * Set the module type to use ES modules (if needed)
+        * Add some custom scripts like starting the server
+
+
+Quick Tips
+----------
+
+    → First, understand the design and how the app will look.
+    → Plan your database properly before writing any code.
+    → Follow a clean and professional folder structure.
+    → Use tools like nodemon and prettier to make development easier.
+    → Use .gitignore to avoid pushing unwanted files to GitHub.
+    → Prettier helps keep your code clean and the same for all developers.
+    → Always update your package.json carefully.
+

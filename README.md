@@ -97,3 +97,35 @@ NOTE:- The "must_change.env" must require some changes;
 
    - Review: `models/ecommerce/`
    - Review: `models/hospital_management/`
+
+---
+
+<h3>📅 Day 05 </h3>
+
+> _"A well-structured project is the foundation of professional software development."_
+
+1. **UI/UX Design & DB Planning Phase**
+
+   - Design all screens using tools like Figma
+   - Collect data points for DB
+   - Create data modeling diagram (with tools like Eraser.io)
+     <br />
+
+2. **Project Initialization & Structuring**
+
+   - Initialize `package.json` with `npm init`
+   - Setup common folders: `src`, `public`, `controllers`, `routes`, etc.
+   - Create essential files: `.env`, `.gitignore`, `README.md`, etc.
+     <br />
+
+3. **Development Tools Setup**
+
+   - Install `nodemon` for auto-restart
+   - Install `prettier` for consistent formatting
+     <br />
+
+4. **Files Configuration**
+
+   - Use online generator to create `.gitignore` for Node.js
+   - Add `.prettierrc` and `.prettierignore` files
+   - Update `package.json` for modules and scripts
