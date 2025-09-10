@@ -1,0 +1,111 @@
+======================
+Day 06 - Mega Project
+======================
+
+This is the 2nd day of our mega back-end project. We are building this project by following a real professional development process used in software companies.
+
+
+MONGO ATLAS
+-----------
+
+    → MongoDB Atlas is a cloud service that provides MongoDB database.
+
+    → Steps to use MongoDB Atlas:
+        1. First, create your free account on MongoDB Atlas.
+        2. Then, create a new project.
+        3. After that, create a cluster inside the project.
+        4. Connect the cluster with your back-end project.
+        5. Copy the cluster connection string and paste it into the `.env` file.
+
+
+CONNECT WITH DB
+---------------
+
+    → There are two ways to connect your back-end project with the database.
+
+    → But before connecting, first export your database name from the `constants.js` file.
+
+
+Approach 1 (Not Used Here)
+--------------------------
+
+    → This method uses IIFE (Immediately Invoked Function Expression) in the `index.js` file.
+
+    → Steps:
+        a. Connect with MongoDB using connection string from `.env` file
+        b. Define express app listener to handle errors
+        c. Start the express server
+
+    → Code Example:
+        import dotenv from "dotenv";
+        import mongoose from "mongoose";
+        import express from "express";
+        import { DB_NAME } from "./constants.js";
+
+        dotenv.config();
+        const app = express();
+
+        (async () => {
+            try {
+                await mongoose.connect(`${process.env.MONGO_URI}/${DB_NAME}`);
+
+                app.on("error", (error) => {
+                    console.log("ERROR: ", error);
+                    throw error;
+                });
+
+                app.listen(process.env.PORT, () => {
+                    console.log(`App is listening on port ${process.env.PORT}`);
+                });
+            } catch (error) {
+                console.log("ERROR: ", error);
+                throw error;
+            }
+        })();
+
+
+Approach 2 (Used in Project)
+----------------------------
+
+    → In this method, the code is similar to Approach 1 but better organized.
+    → We create a new file inside `src/db/` folder. Name it `connection.js`.
+    → In that file, we write and export the DB connection function.
+    → In `index.js`, we simply import and run that function.
+    → This keeps the `index.js` file clean and easier to read.
+
+
+Important Notes for DB Connection
+---------------------------------
+
+    * Always use async/await because connecting to database takes time.
+
+    * Always use try-catch block to catch and handle errors.
+
+
+Important Notes for File Imports
+--------------------------------
+
+    → When using `module` type in `package.json`, we must use `.js` extension while importing files.
+
+    → Wrong: import connectDB from "./db/connection";
+    → Correct: import connectDB from "./db/connection.js";
+
+
+Important Notes for dotenv
+--------------------------
+
+    → Always import and configure `dotenv` at the very top of your main file.
+    
+    → This makes sure all environment variables are available to use in your backend.
+
+
+Quick Tips
+----------
+
+    → Use MongoDB Atlas to create and manage your database online.
+    → Store your MongoDB connection string in `.env` file.
+    → Prefer Approach 2 for connecting to DB to keep your project files clean.
+    → Use try-catch and async/await for DB operations.
+    → Use `.js` extension when importing files in ES modules.
+    → Load `dotenv` early to make `.env` variables work across all files.
+

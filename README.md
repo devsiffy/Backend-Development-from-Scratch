@@ -129,3 +129,30 @@ NOTE:- The "must_change.env" must require some changes;
    - Use online generator to create `.gitignore` for Node.js
    - Add `.prettierrc` and `.prettierignore` files
    - Update `package.json` for modules and scripts
+
+---
+
+<h3>📅 Day 06</h3>
+
+> _"Build software the way real teams do – step by step, piece by piece."_
+
+1. **MongoDB Atlas**
+
+   - Create account, project, cluster
+   - Save URI in `.env`
+     <br />
+
+2. **DB Connection**
+
+   - Two connection approaches:
+     Direct connect in `index.js` (less modular)
+     Use `src/db/connection.js`
+   - Best Practices: Use `async/await` + `try/catch`
+     <br />
+
+3. **Import Rules**
+
+   - Load `dotenv` at top of entry file
+   - Add `.js` extension to imports
+   - Keep secrets in `.env`
+   - Keep `index.js` clean
