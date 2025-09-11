@@ -1,0 +1,110 @@
+======================
+Day 07 - Mega Project
+======================
+
+This is the 3rd day of our mega back-end project. We are building this project by following a real professional development process used in software companies.
+
+
+EXPRESS SERVER STRUCTURE
+-------------------------
+
+    → We split the express app and the main server file into two separate files:
+        1. app.js (for setting up the app and middlewares)
+        2. index.js (for connecting DB and running the server)
+
+    → This is a good practice in real-world projects.
+
+
+What Happens in index.js
+-------------------------
+
+    → Loads environment variables using `dotenv`.
+    → Connects to MongoDB using `connectDB()` function.
+    → Starts the server using `app.listen()` only after DB is connected.
+    → Handles errors while starting server or connecting to DB.
+
+Code Flow:
+
+    1. Load dotenv
+    2. Connect to DB
+    3. If DB connects → start server
+    4. If DB fails → show error
+
+
+What Happens in app.js
+----------------------
+
+    → Creates the express app.
+
+    → Adds middlewares:
+        * cors - for cross-origin requests
+        * cookieParser - to read cookies
+        * express.json() - to parse JSON body
+        * express.urlencoded() - to parse form data
+        * express.static() - to serve static files (like images, HTML)
+
+    → Exports the app to be used in index.js
+
+
+UTIL FILES CREATED
+------------------
+
+We created 3 utility files in the `utils` folder.
+These files make code reusable and easy to maintain.
+
+
+1. asyncHandler.js
+------------------
+
+    → Helps to avoid repeating try-catch in each route or controller.
+    → Wraps async functions and catches errors automatically.
+
+    → 2 Approaches:
+        * Promise version (used in project)
+        * Async-await with try-catch (commented for learning)
+
+    → We export this function and can use it in routes later.
+
+
+2. ApiError.js
+--------------
+
+    → Custom error class to send more detailed error responses.
+    → Extends the built-in Error class.
+
+    → Adds extra properties:
+        * statusCode
+        * message
+        * success (false)
+        * errors (optional)
+        * stack (for debugging)
+
+    → We can use this class in controller functions when we want to throw an error.
+
+
+3. ApiResponse.js
+-----------------
+
+    → A standard format to send success responses.
+    → Makes it easier for frontend to handle responses.
+
+    → Contains:
+        * statusCode
+        * data
+        * message (default: "Success")
+        * success (true if status code < 400)
+
+    → Use this in controller functions when sending response after a successful task.
+
+
+QUICK TIPS
+----------
+
+    → Keep your app setup and server listener in separate files.
+    → Use ApiResponse for sending success data in a clean format.
+    → Use ApiError to throw clean and structured error messages.
+    → Use async/await with try-catch when working with DB or API calls.
+    → Keep express setup in a separate file (like app.js) for cleaner code.
+    → Use middlewares like cors, express.json(), and cookieParser for real-world features.
+    → Utility functions like asyncHandler and ApiError are used in almost all big projects.
+

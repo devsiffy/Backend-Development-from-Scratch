@@ -156,3 +156,25 @@ NOTE:- The "must_change.env" must require some changes;
    - Add `.js` extension to imports
    - Keep secrets in `.env`
    - Keep `index.js` clean
+
+---
+
+<h3>📅 Day 07 </h3>
+
+> _"Building real-world back-end architecture step by step."_
+
+1. **Express App Setup (`app.js`)**
+
+   - Middlewares: `cors`, `cookieParser`, `express.json`, etc.
+     <br />
+
+2. **Server Initialization (`index.js`)**
+
+   - DB connection, server start, and error handling
+     <br />
+
+3. **Utility Modules (`utils/`)**
+
+   - `asyncHandler.js` – async error wrapper
+   - `ApiError.js` – custom error class
+   - `ApiResponse.js` – consistent success responses
