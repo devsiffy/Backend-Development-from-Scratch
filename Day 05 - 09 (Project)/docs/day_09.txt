@@ -1,0 +1,65 @@
+=====================
+Day 09 - Mega Project
+=====================
+
+This is the 5th day of our mega back-end project. We are building this project by following a real professional development process used in software companies.
+
+
+CLOUDINARY SETUP
+----------------
+
+We are using Cloudinary to store images and other files in the cloud.
+
+Steps we followed:
+    * Create a free Cloudinary account  
+    * Add Cloudinary credentials in `.env` file:
+        → CLOUDINARY_CLOUD_NAME  
+        → CLOUDINARY_API_KEY  
+        → CLOUDINARY_API_SECRET  
+
+    * Installed Cloudinary npm package  
+    * Created `src/utils/cloudinary.js`  
+        → Configure Cloudinary using credentials from `.env`  
+        → Added a function `uploadOnCloudinary` to upload files from local to Cloudinary  
+        → Handles errors and deletes local file if upload fails  
+
+Important points:
+    → Cloudinary stores files safely and allows easy access via URLs  
+    → Always keep API keys secret in `.env`  
+    → Handle upload errors properly to avoid broken files  
+
+
+MULTER SETUP
+------------
+
+We are using Multer to handle file uploads from clients to our server.
+
+Steps we followed:
+    * Installed Multer npm package  
+    * Created `src/middleware/multer.middleware.js`  
+        → Configure storage folder (`./public/temp`)  
+        → Configure file naming  
+        → Export middleware to use in routes  
+
+Important points:
+    → Multer helps store files temporarily on server before uploading to Cloudinary  
+    → Works together with Cloudinary for full upload workflow  
+    → Middleware makes it easy to add file upload in specific routes  
+
+
+PACKAGES INSTALLED TODAY
+-----------------------
+
+    * cloudinary → To upload and manage files in cloud  
+    * multer → To handle file uploads in ExpressJS  
+
+
+QUICK TIPS
+----------
+
+    → Keep API keys secret in `.env` file  
+    → Always handle errors during file upload  
+    → Use temporary folder for files before sending to cloud  
+    → Combine Multer + Cloudinary for full upload workflow  
+    → Test file uploads with different file types (images, videos)  
+

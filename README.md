@@ -206,3 +206,22 @@ NOTE:- The "must_change.env" must require some changes;
    - Defined video fields
    - Linked each video to its owner (User)
    - Added pagination support using `mongoose-aggregate-paginate-v2`
+
+---
+
+<h3>📅 Day 09</h3>
+
+> _"Code is the bridge between imagination and reality; every bug you fix is a step forward."_
+
+1. **Cloudinary Setup**
+
+   - Creating an account and adding credentials in `.env`
+   - Installing npm package `cloudinary` and configure
+   - Functions to upload files and handle errors
+     <br />
+
+2. **Multer Setup**
+
+   - Installing npm package `multer`
+   - Define multer as middleware
+   - Multer uses for temporary file storage, and works with Cloudinary
