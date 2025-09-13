@@ -1,0 +1,134 @@
+=====================
+Day 08 - Mega Project
+=====================
+
+This is the 4th day of our mega back-end project. We are building this project by following a real professional development process used in software companies.
+
+
+MODEL FILES CREATED
+-------------------
+
+We created two model files in the `src/models` folder:
+    * user.model.js
+    * video.model.js
+
+These model files contain Mongoose schemas for the User and Video data.
+We used different field types and validation features of Mongoose.
+
+    → All required fields are added
+    → Used ObjectId references to connect models
+    → Enabled timestamps (createdAt, updatedAt)
+
+
+USER MODEL DETAILS
+------------------
+
+The `user.model.js` includes many fields like:
+    * username
+    * email
+    * fullName
+    * avatar
+    * coverImage
+    * watchHistory → Array of Video ObjectIds
+    * password
+    * refreshToken
+
+Important points:
+    → Fields like username, email, and fullName are trimmed and unique.
+    → Avatar is required and stores Cloudinary image URL.
+    → Password is required and will be hashed before saving.
+
+
+PASSWORD HASHING (Using Mongoose Pre Middleware)
+------------------------------------------------
+
+We used `userSchema.pre("save", ...)` to hash the user password before saving to the database.
+
+    → This function runs only if the password is modified.
+    → It uses `bcrypt.hash()` to convert plain password into a hashed string.
+    → This is a best practice for security.
+
+→ Passwords should never be stored as plain text.
+
+
+USER METHODS (Custom Functions on User Schema)
+---------------------------------------------
+
+We added 3 important custom methods to the user schema using `userSchema.methods`.
+
+    1. isPasswordCorrect(password)
+        → Compares entered password with stored hashed password
+        → Uses `bcrypt.compare()`
+
+    2. generateAccessToken()
+        → Creates a short-term JWT
+        → Uses values from `.env` file for secret and expiry
+
+    3. generateRefreshToken()
+        → Creates a long-term JWT
+        → Also uses values from `.env`
+
+
+TOKEN SECRETS AND EXPIRY SETUP
+------------------------------
+
+We stored secret keys and expiry times in the `.env` file:
+    * ACCESS_TOKEN_SECRET
+    * ACCESS_TOKEN_EXPIRY
+    * REFRESH_TOKEN_SECRET
+    * REFRESH_TOKEN_EXPIRY
+
+→ These values are accessed using `process.env` inside our methods.  
+→ Never write these secrets directly in code.  
+
+
+VIDEO MODEL DETAILS
+-------------------
+
+The `video.model.js` includes fields like:
+    * videoFile (Cloudinary URL)
+    * thumbnail (Cloudinary URL)
+    * title
+    * description
+    * duration
+    * views (default is 0)
+    * isPublished (default is true)
+    * owner (refers to User)
+
+→ The `owner` field connects a video to the user who uploaded it.
+
+
+ADDED PAGINATION PLUGIN
+------------------------
+
+We used the `mongoose-aggregate-paginate-v2` package.
+
+In the video model, we added this plugin:
+    videoSchema.plugin(mongooseAggregatePaginate);
+
+→ This plugin helps in applying pagination in aggregate queries.  
+→ Useful for listing videos page by page (e.g. in frontend infinite scroll).
+
+
+PACKAGES INSTALLED TODAY
+------------------------
+
+We installed the following npm packages:
+    * mongoose-aggregate-paginate-v2 → Pagination support
+    * bcrypt → For hashing passwords
+    * jsonwebtoken → For creating and verifying JWT tokens
+
+→ These are commonly used in almost every modern backend project.
+
+
+QUICK TIPS
+----------
+
+    → Always hash passwords using bcrypt before saving to DB.
+    → Use Mongoose middleware (pre hook) for automatic actions like hashing.
+    → Use `.methods` to create custom helper functions in your models.
+    → Store secrets and expiry values in `.env` file for better security.
+    → Use JWT for authentication (access and refresh tokens).
+    → Add pagination plugin if you want to support large lists of data.
+    → Make sure models are clean, readable, and follow best practices.
+

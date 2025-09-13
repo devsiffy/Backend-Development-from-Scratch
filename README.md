@@ -178,3 +178,31 @@ NOTE:- The "must_change.env" must require some changes;
    - `asyncHandler.js` – async error wrapper
    - `ApiError.js` – custom error class
    - `ApiResponse.js` – consistent success responses
+
+---
+
+<h3>📅 Day 08</h3>
+
+> _"Professional backend development through real-world modeling techniques."_
+
+1. **Model Structure & Setup**
+
+   - Created `user.model.js` and `video.model.js` using Mongoose
+   - Used ObjectId references, timestamps, and schema validation  
+     <br />
+
+2. **User Model & Authentication**
+
+   - Defined user fields
+   - Password hashing with `bcrypt` using Mongoose pre-save middleware
+   - Custom methods for authentication:
+     - Password verification (`bcrypt`)
+     - JWT generation (`jsonwebtoken`) for access & refresh tokens
+   - Stored secrets and token expiry settings in `.env`
+     <br />
+
+3. **Video Model & Pagination**
+
+   - Defined video fields
+   - Linked each video to its owner (User)
+   - Added pagination support using `mongoose-aggregate-paginate-v2`
