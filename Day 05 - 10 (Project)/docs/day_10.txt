@@ -1,0 +1,179 @@
+=======================
+Day 10 - All About HTTP
+=======================
+
+
+What is HTTP?
+-------------
+
+HTTP means Hyper Text Transfer Protocol.
+It is a set of rules that help send and receive data on the internet.
+Websites, mobile apps, and APIs use HTTP to talk to each other.
+
+
+HTTP vs HTTPS
+-------------
+
+HTTP sends data as plain text. Anyone in between can read it.
+HTTPS is secure. It uses encryption so data cannot be read during transfer.
+Only difference is encryption. Everything else is the same.
+
+
+Client and Server
+-----------------
+
+A client is your browser or mobile app.
+A server is the computer running the website or API.
+Client sends requests, server gives back responses.
+This is called the Client‑Server Model.
+
+
+URL, URI, URN
+-------------
+
+These are names for addresses on the internet.
+
+URL: Uniform Resource Locator (gives location, like https://example.com)
+URI: Uniform Resource Identifier (more general term)
+URN: Uniform Resource Name (rarely used now)
+
+Most people just say URL. Don’t worry too much about details.
+
+
+=========================
+HTTP Requests and Headers
+=========================
+
+
+What is a Header?
+-----------------
+
+A header is extra info sent with HTTP requests or responses.
+
+It is written as key: value
+    Example:
+        Name: Hitesh
+
+Headers are used to send meta data about the data.
+There are request headers (from client to server) and response headers (from server to client).
+
+
+Why are Headers Important?
+--------------------------
+
+Headers are used for many things:
+Authentication
+Caching
+Telling server what kind of data we want
+Managing session and user state
+
+
+Types of HTTP Headers
+-------------------------
+
+Request Headers → sent by client
+Response Headers → sent by server
+Representation Headers → tell format, encoding, or compression
+Payload Headers → info about actual data (called payload)
+
+
+Common Headers to Know
+----------------------
+
+    Accept
+        → What type of data you want (like JSON, HTML)
+
+    User‑Agent
+        → Tells which app or browser is making the request
+
+    Authorization
+        → Sends access token
+        → Example:
+            Authorization: Bearer xxxxxx.token
+
+    Content‑Type
+        → Tells what kind of data you are sending (like JSON, form, image)
+
+    Cookie
+        → Sends small stored data pieces
+        → Used for login sessions
+
+    Cache‑Control
+        → Tells browser how long to store or reuse data
+
+
+Special Headers in Production Applications
+------------------------------------------
+
+CORS headers (Cross‑Origin Resource Sharing)
+    → Control which sites or apps can access this server
+
+Security headers
+    → Set app security rules (e.g., X‑Frame‑Options)
+
+These do not work by themselves. You must write code to use them.
+
+
+====================
+HTTP Methods (Verbs)
+====================
+
+Methods are actions you can ask a server to do.
+
+Most Common Methods
+-------------------
+
+    GET
+        → Get (read) data from server
+
+    POST
+        → Send new data to server (like register user)
+
+    PUT
+        → Update whole resource (replace)
+
+    PATCH
+        → Update part of the resource
+
+    DELETE
+        → Delete something on the server
+
+
+Other Methods
+-------------
+
+    HEAD
+        → Like GET but returns only headers (no body)
+
+    OPTIONS
+        → Ask server what methods are allowed on an endpoint
+
+    TRACE
+        → Used to check/debug the request path (rarely used)
+
+
+=================
+HTTP Status Codes
+=================
+
+Categories of Codes
+-------------------
+
+| Code Range | Meaning          | Example        |
+|------------|------------------|----------------|
+| 1xx        | Informational    | 100 Continue   |
+| 2xx        | Success          | 200 OK         |
+| 3xx        | Redirection      | 301 Moved      |
+| 4xx        | Client Error     | 404 Not Found  |
+| 5xx        | Server Error     | 500 Server Err |
+
+Most common codes to remember:
+
+    200 OK
+    201 Created
+    400 Bad Request
+    401 Unauthorized
+    403 Forbidden
+    404 Not Found
+    500 Internal Server Error
+

@@ -225,3 +225,35 @@ NOTE:- The "must_change.env" must require some changes;
    - Installing npm package `multer`
    - Define multer as middleware
    - Multer uses for temporary file storage, and works with Cloudinary
+
+---
+
+<h3>📅 Day 10</h3>
+
+> _"The web speaks in protocols — learn their language to unlock endless possibilities."_
+
+1.  **HTTP Basics**
+
+    - Overview
+    - HTTP vs HTTPS
+    - Client-Server Model
+    - URL, URI, URN
+      <br />
+
+2.  **HTTP Headers**
+
+    - Purpose and importance
+    - Types: Request, Response, Representation, Payload
+    - Key headers: Authorization, Content-Type, CORS
+      <br />
+
+3.  **HTTP Methods**
+
+    - Main verbs: GET, POST, PUT, PATCH, DELETE
+    - Others: HEAD, OPTIONS, TRACE
+      <br />
+
+4.  **HTTP Status Codes**
+
+    - Categories: 1xx to 5xx
+    - Common codes: 200, 201, 400, 401, 403, 404, 500
