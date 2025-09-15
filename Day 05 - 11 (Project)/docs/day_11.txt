@@ -1,0 +1,107 @@
+=====================
+Day 11 - Mega Project
+=====================
+
+This is the 7th day of our mega back-end project. We are building this project by following a real professional development process used in software companies.
+
+
+Express Router and Routes
+-------------------------
+
+In Express, we can organize our API by using "routers".
+
+A router helps to keep our code clean and separate. Instead of writing all the API routes in one file, we can split them into different files using routers.
+
+To define a router, we use the "Router" function from Express.
+
+
+How to Define a Router and Routes
+---------------------------------
+
+To create a router:
+    * First, import Router from express.
+    * Then, create a new router using Router().
+    * After that, use router.route().get(), .post(), .put(), or .delete() to define the route.
+    * Finally, export the router.
+
+Example:
+    * router.route("/register").post(registerUser)
+
+This means:
+    → When a POST request comes to "/register", it will call the "registerUser" function.
+
+
+How to Define Controllers and Send JSON Response
+------------------------------------------------
+
+Controllers are functions that handle the request and give a response.
+
+    * A controller function receives three things: req (request), res (response), and next (for error handling).
+    * It can send a response using res.status().json()
+    * Status code is used to tell the result of the request. For example, 200 means success.
+
+In our code:
+    * The controller is "registerUser"
+    * It sends a JSON response with status code 200
+    * The message is "OK"
+
+So, when someone calls this route, the user gets a success message.
+
+
+How to Import Router in src/app.js and Handle API Request
+---------------------------------------------------------
+
+In the app.js file, we use Express to make the full app.
+
+    * First, we import the userRouter from user.route.js
+    * Then, we connect it to our app using app.use()
+
+This line is very important:
+    app.use("/api/v1/users", userRouter)
+
+It means:
+    → All routes written inside userRouter will now be available under "/api/v1/users"
+
+For example:
+    * If router has "/register", then full route is "/api/v1/users/register"
+
+
+Why We Wrap Controllers in asyncHandler
+---------------------------------------
+
+In JavaScript, when we write async functions, they can throw errors.
+If we don't handle these errors properly, the server may crash or not respond correctly.
+To solve this, we use a function called asyncHandler.
+
+What asyncHandler does:
+    * It takes a controller function as input
+    * It returns a new function that handles errors using try-catch (using Promise)
+    * If there is an error, it goes to next(error) and Express can handle it
+
+This is useful because:
+    * We don’t need to write try-catch in every controller
+    * It keeps our code clean and simple
+    * It protects the app from crashing due to unhandled errors
+
+
+How to Use Postman to Test Defining Routes
+------------------------------------------
+
+Postman is a tool to test API routes easily.
+
+To test the "/register" route in Postman:
+
+    * Open Postman
+    * Click "Collections" tab on left side
+    * Click "New Collection" to create a group for your APIs
+    * Give it a name like "User APIs" and save
+
+    * Inside the collection, click "Add Request"
+    * Give the request a name like "Register User"
+    * Select method as POST
+    * In the URL box, type:
+        http://localhost:8000/api/v1/users/register
+
+    * Click "Send" to test the API
+    * You will get a response with status code 200 and message "OK"
+
