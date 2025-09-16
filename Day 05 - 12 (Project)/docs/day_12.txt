@@ -1,0 +1,199 @@
+=====================
+Day 12 - Mega Project
+=====================
+
+This is the 8th day of our mega back-end project. We are building this project by following a real professional development process used in software companies.
+
+
+=================
+User Registration
+=================
+
+Register User
+--------------
+
+To register a user, follow these steps one by one.
+
+    → Get data from frontend
+    → Validate the data (all fields must be filled)
+    → Check if username or email already exists
+    → Get image files from frontend (avatar and coverImage)
+    → Upload images to Cloudinary
+    → Create a new user in the database
+    → Remove password and refreshToken before sending response
+    → Return success message with user data
+
+
+Get User Details
+----------------
+
+Frontend sends user details like:
+    * fullName
+    * email
+    * username
+    * password
+
+These come in `req.body`.
+
+
+Validation - Not Empty
+----------------------
+
+Check if any field is empty. You can do this:
+    * Use .trim() on each field
+    * If any field is empty, throw error
+
+If empty: stop the process and send error
+
+
+Check User Already Exists
+-------------------------
+
+Use MongoDB query to find if any user already has same email or username:
+    * Use `$or` to check both email and username
+    * If found, stop and send error
+
+
+Check for Avatar Image
+----------------------
+
+Frontend must send avatar image.
+
+    * Use multer to get image files in `req.files`
+    * Get local file path of avatar image
+
+If no avatar image, send error
+
+
+Upload to Cloudinary
+--------------------
+
+Use Cloudinary service to upload image files.
+
+    * Call upload function with local file path
+    * Store returned image URL
+    * Use `avatar.url` in database
+
+If Cloudinary fails, send error
+
+
+Create User Object
+------------------
+
+After validation and image upload:
+    * Create user using `User.create()`
+    * Save all user details in database
+    * Make username lowercase
+
+
+Remove Sensitive Fields
+-----------------------
+
+After creating user:
+    * Find user again using ID
+    * Use `.select()` to remove password and refreshToken
+
+This keeps user data safe in response.
+
+
+Check User Creation
+-------------------
+
+After saving user:
+    * If user is not created, send error
+    * Use status code 500 for internal server error
+
+
+Return Response
+---------------
+
+Send final response to frontend:
+    * Use `res.status(201)`
+    * Send ApiResponse object with status, data, and message
+
+
+=========================
+Multer and File Uploading
+=========================
+
+How Multer Stores Files
+-----------------------
+
+Multer is used to upload files from frontend.
+
+    * It stores files on server
+    * We define folder using `destination` in `diskStorage`
+    * File name is saved using `file.originalname`
+
+Files are stored in:
+    ./public/temp
+
+Later, these files are uploaded to Cloudinary.
+
+
+How Cloudinary Upload Works
+---------------------------
+
+Cloudinary takes local file path and uploads the file online.
+
+    * Use `cloudinary.uploader.upload()`
+    * It returns a response with file URL and details
+    * If upload fails, delete local file using `fs.unlinkSync()`
+
+Upload is automatic for:
+    * image
+    * video
+    * any file (resource_type: "auto")
+
+
+===========================
+Using ApiError for Handling
+===========================
+
+What is ApiError
+----------------
+
+ApiError is a custom class used for errors.
+
+    * Takes status code and message
+    * Always sets success = false
+    * Can include error details or stack
+
+How to use:
+    * throw new ApiError(400, "Something went wrong")
+
+This helps to send proper error response in JSON.
+
+
+Why Use ApiError
+----------------
+
+    * Easy to control all error messages
+    * Clean error format for frontend
+    * Can set custom messages and codes
+
+
+==============================
+Using ApiResponse for Response
+==============================
+
+What is ApiResponse
+-------------------
+
+ApiResponse is a class for sending data in proper format.
+
+    * Has statusCode, data, message, success
+    * success is true if statusCode < 400
+
+How to use:
+    res.status(201).json(
+        new ApiResponse(200, createdUser, "User registered successfully")
+    )
+
+
+Why Use ApiResponse
+-------------------
+
+    * Frontend gets all responses in same format
+    * Easy to handle success messages
+    * Clean and professional output

@@ -289,3 +289,28 @@ NOTE:- The "must_change.env" must require some changes;
    -  Creating collections and requests
    -  Testing POST routes like `/register`
    -  Verifying JSON response and status codes
+
+---
+
+<h3>📅 Day 12</h3>
+
+> _"Building like real professionals, one step at a time."_
+
+1. **User Registration Workflow**
+
+   -  Input validation and duplication checks
+   -  Image handling and upload (avatar, cover)
+   -  User creation and sensitive data filtering
+   -  Structured API response to frontend
+      <br />
+
+2. **File Management**
+
+   -  Local file handling with Multer
+   -  Cloudinary integration for media uploads
+      <br />
+
+3. **Error Handling & API Response**
+
+   -  Centralized error responses using `ApiError`
+   -  Consistent success responses via `ApiResponse`
