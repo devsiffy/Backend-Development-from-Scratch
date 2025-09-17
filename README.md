@@ -314,3 +314,37 @@ NOTE:- The "must_change.env" must require some changes;
 
    -  Centralized error responses using `ApiError`
    -  Consistent success responses via `ApiResponse`
+
+---
+
+<h3>📅 Day 13</h3>
+
+> _"Building like real devs — one step at a time."_
+
+1. **User Registration API**
+
+   -  Testing `/api/v1/users/register` using POSTMAN
+   -  Required form-data fields: fullName, email, username, password, avatar, coverImage
+   -  Backend tasks: validation, duplication checks, Cloudinary upload, DB save, response handling
+      <br />
+
+2. **Cloudinary Bug Fixes**
+
+   -  Bug in `cloudinary.js` due to delayed `dotenv.config()`
+   -  Environment variables not loading (`CLOUDINARY_CLOUD_NAME`, etc.)
+   -  Fixes applied in:
+      -  `src/index.js` (moved `dotenv.config()` above imports)
+      -  `package.json` (`nodemon -r dotenv/config ...`)
+         <br />
+
+3. **Local File Cleanup After Upload**
+
+   -  Deleting uploaded files from `public/temp` after Cloudinary upload
+   -  Using `fs.unlinkSync()` in both success and error cases
+      <br />
+
+4. **Professional Use of POSTMAN**
+
+   -  Organizing with Collections (e.g., `MediaTube`) and Folders (e.g., `user`)
+   -  Creating and using Environment Variables (`server` = base URL)
+   -  Replacing hardcoded URLs with `{{server}}` variable in requests

@@ -1,0 +1,169 @@
+=====================
+Day 13 - Mega Project
+=====================
+
+This is the 9th day of our mega back-end project. We are building this project by following a real professional development process used in software companies.
+
+
+===============================
+User Registration Route Testing
+===============================
+
+Testing the /api/v1/users/register Route
+----------------------------------------
+
+This route is used to register a new user.
+To test this route, we use POSTMAN and send a POST request.
+
+    → Method: POST  
+    → URL: http://localhost:8000/api/v1/users/register  
+    → Body Type: form-data  
+
+Form-data must include:
+    * fullName (text)
+    * email (text)
+    * username (text)
+    * password (text)
+    * avatar (file)
+    * coverImage (file)
+
+After sending, the backend should:
+    → Validate all fields  
+    → Check if email or username already exists  
+    → Upload avatar and coverImage to Cloudinary  
+    → Save user in database  
+    → Remove uploaded file from local folder  
+    → Send response with user data (without password)  
+
+
+====================
+Bug in cloudinary.js
+====================
+
+Problem with Environment Variables
+----------------------------------
+
+There was a bug in the file `cloudinary.js`.
+Environment variables were not loading properly. Because of this, Cloudinary was not working.
+
+The main reason:
+    → dotenv.config() was called after importing other files
+
+This means environment variables like:
+    * CLOUDINARY_CLOUD_NAME
+    * CLOUDINARY_API_KEY
+    * CLOUDINARY_API_SECRET
+
+were undefined.
+
+
+==============
+Fixing the Bug
+==============
+
+Fix in src/index.js File
+------------------------
+
+To fix the issue, we moved the line:
+    dotenv.config();
+
+Above the import lines in `src/index.js`.
+
+Now the first few lines in the file look like this:
+    import dotenv from "dotenv";
+    dotenv.config();
+    import connectDB from "./db/connection.js";
+    import { app } from "./app.js";
+
+This ensures all environment variables are loaded before any file is imported.
+
+
+Fix in package.json Script
+--------------------------
+
+We also changed the script in `package.json`.
+
+Before:
+    "dev": "nodemon src/index.js"
+
+After:
+    "dev": "nodemon -r dotenv/config src/index.js"
+
+This helps load the environment variables first, even before `src/index.js` runs.
+This is very helpful during development.
+
+
+==============================
+Remove Local File After Upload
+==============================
+
+Update in cloudinary.js
+-----------------------
+
+After uploading the image to Cloudinary, we added this line:
+    fs.unlinkSync(localFilePath);
+
+This line is added in both `try` and `catch` blocks.
+Why?
+    * To remove the file from local folder after upload
+    * To remove even if upload fails (error happens)
+
+So, local files from folder like:
+    public/temp
+
+are deleted after use. This saves disk space.
+
+
+============================
+Using POSTMAN Professionally
+============================
+
+Create Collection and Folder
+----------------------------
+
+To organize your requests:
+    * Create a Collection named: MediaTube  
+    * Inside it, create a Folder named: user
+
+This keeps your POSTMAN clean and easy to manage.
+
+
+Define Environment Variable in POSTMAN
+--------------------------------------
+
+In POSTMAN:
+    * Click the gear icon on top-right → Environments  
+    * Create a new Environment named: MediaTube_ENV  
+    * Add a new variable:  
+        → Key: server  
+        → Value: http://localhost:8000/api/v1  
+
+Then, click "Set Active" to use this environment.
+
+
+Use Environment Variable in Request
+-----------------------------------
+
+Instead of typing full URL every time, use this:
+    {{server}}/users/register
+
+POSTMAN will replace `{{server}}` with `http://localhost:8000/api/v1`.
+It makes URLs shorter and easier to change later.
+
+
+Send POST Request with Form-Data
+--------------------------------
+
+Set request method to POST.
+Use Body tab → form-data.
+
+Add the following fields:
+    * fullName → text
+    * email → text
+    * password → text
+    * username → text
+    * avatar → file
+    * coverImage → file
+
+Click "Send" to register a new user.
+
