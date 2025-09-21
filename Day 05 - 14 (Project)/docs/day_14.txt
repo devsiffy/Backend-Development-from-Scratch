@@ -1,0 +1,127 @@
+=====================
+Day 14 - Mega Project
+=====================
+
+This is the 10th day of our mega back-end project. We are building this project by following a real professional development process used in software companies.
+
+
+=====================
+Login and Logout Flow
+=====================
+
+1. /login Route
+---------------
+
+This route is used when a user wants to log in.
+
+It takes data like:
+    - email
+    - username
+    - password
+
+Steps in loginUser controller:
+    * Check if email or username is given.
+    * Search the user in the database using email or username.
+    * If user not found → throw error.
+    * If user found → check the password.
+    * If password is wrong → throw error.
+    * If password is correct:
+        → Generate access token and refresh token.
+        → Save refresh token in user’s record.
+        → Remove password and refresh token from response.
+        → Send tokens and user data in response.
+        → Set cookies for both access and refresh tokens.
+
+Note:
+    Cookies are set using `res.cookie()` and must be:
+        - httpOnly: true
+        - secure: true
+
+
+2. Access & Refresh Token Generator
+-----------------------------------
+
+This function is used to generate both tokens for logged-in users.
+
+Steps:
+    * Find the user using userId.
+    * Call user.generateAccessToken().
+    * Call user.generateRefreshToken().
+    * Save the refreshToken to the user’s record.
+    * Return both tokens (accessToken and refreshToken).
+
+If there is any error in this process, return a 500 error.
+
+
+3. /logout Route and logoutUser Controller
+------------------------------------------
+
+This route is used when a user wants to log out.
+It is a protected route, so it uses a middleware to check the token first.
+
+Steps in logoutUser controller:
+    * Find the user using req.user._id.
+    * Remove the refresh token from the user’s record.
+    * Clear the cookies:
+        - accessToken
+        - refreshToken
+    * Send a success message in response.
+
+Cookies are cleared using:
+    res.clearCookie("accessToken", options)
+    res.clearCookie("refreshToken", options)
+
+Where:
+    options = { httpOnly: true, secure: true }
+
+
+4. Middleware: verifyJWT (used in logout)
+-----------------------------------------
+
+This middleware is used to protect routes like /logout.
+
+Steps:
+    * Get token from cookies or Authorization header.
+    * If token not found → throw 401 Unauthorized.
+    * Verify the token using jwt.verify().
+    * If token is invalid → throw 401 error.
+    * If token is valid:
+        → Find the user using decoded _id.
+        → Remove password and refresh token from user data.
+        → Attach user to req.user.
+        → Call next() to continue.
+
+If token is missing or not valid, the route will not work.
+
+
+5. Sending Cookies in loginUser
+-------------------------------
+
+After successful login, tokens are sent as cookies.
+
+    * accessToken
+    * refreshToken
+
+Both cookies are set using:
+    res.cookie("cookieName", value, options)
+
+Options used:
+    - httpOnly: true
+    - secure: true
+
+This helps to protect the tokens from client-side JavaScript.
+These cookies are sent in the response using .cookie() method.
+
+
+6. Removing Cookies in logout
+----------------------------
+
+In logoutUser controller, we clear the cookies.
+
+Use the following code to remove them:
+    res.clearCookie("accessToken", options)
+    res.clearCookie("refreshToken", options)
+
+This makes sure the tokens are removed from browser.
+Cookies must be cleared with the same options as used while setting them.
+

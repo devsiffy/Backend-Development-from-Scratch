@@ -348,3 +348,28 @@ NOTE:- The "must_change.env" must require some changes;
    -  Organizing with Collections (e.g., `MediaTube`) and Folders (e.g., `user`)
    -  Creating and using Environment Variables (`server` = base URL)
    -  Replacing hardcoded URLs with `{{server}}` variable in requests
+
+---
+
+<h3>📅 Day 14</h3>
+
+> _"Building a real-world back-end system using professional development practices."_
+
+1. **Authentication Flow**
+
+   -  `/login` Route
+   -  `/logout` Route
+   -  `loginUser` Controller
+   -  `logoutUser` Controller
+      <br />
+
+2. **Token Management**
+
+   -  Access & Refresh Token Generator
+   -  Sending Tokens as Secure Cookies
+   -  Removing Tokens via Cookies on Logout
+      <br />
+
+3. **Security Middleware**
+   -  `verifyJWT` Middleware for Protected Routes
+   -  Token Validation via Cookies or Headers
