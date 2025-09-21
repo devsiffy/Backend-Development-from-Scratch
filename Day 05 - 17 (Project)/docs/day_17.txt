@@ -1,0 +1,89 @@
+=====================
+Day 17 - Mega Project
+=====================
+
+This is the 13th day of our mega back-end project. We are building this project by following a real professional development process used in software companies.
+
+
+=========================
+Subscription Model Design
+=========================
+
+What is the Subscription Model?
+-------------------------------
+
+This model is used to manage user subscriptions.
+Each subscription is stored as a separate document in the database.
+
+There are two main fields in each subscription:
+    * subscriber → the user who subscribes to a channel
+    * channel → the user or channel that is being subscribed to
+
+This model helps keep things organized and easy to manage.
+
+
+Why Not Use an Array Inside the User Schema?
+--------------------------------------------
+
+Sometimes people think of adding all subscriptions in an array inside the user data.
+
+But this is not a good idea. Here is why:
+    * If a user has millions of subscriptions, the array will become too large.
+    * MongoDB has a size limit for documents. Arrays can hit that limit.
+    * Updating or removing one item from a huge array takes a lot of time.
+    * It makes the system slow and hard to scale.
+
+So, using separate documents is better for performance and scalability.
+
+
+One Subscription = One Document
+-------------------------------
+
+Each time a user subscribes to a channel:
+    → A new document is created in the Subscription collection.
+
+This document only stores:
+    * The subscriber's ID
+    * The channel's ID
+
+This design keeps each subscription simple and clean.
+
+
+How to Get the Number of Subscribers of a Channel
+-------------------------------------------------
+
+To count how many people subscribed to a channel:
+    → Query the Subscription collection where channel = X
+
+Then:
+    → Count the number of matching documents
+
+Each document represents one subscriber.
+
+
+How to Get All Channels a User Has Subscribed To
+------------------------------------------------
+
+To find what channels a user has subscribed to:
+    → Query the Subscription collection where subscriber = X
+
+Then:
+    → Extract all the channel IDs from those documents
+
+This gives a full list of all subscribed channels for that user.
+
+
+Why Use This Approach?
+----------------------
+
+This method is very effective and follows best practices.
+
+    * It is easy to create indexes on subscriber and channel fields.
+    * It allows fast searching and counting.
+    * It scales well with millions of users.
+    * It keeps the user schema simple and clean.
+
+This is the preferred way when working with databases like MongoDB.
+
+NOTE:- You can see the "day_17.png" image for visual understanding.
+

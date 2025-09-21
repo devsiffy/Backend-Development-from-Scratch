@@ -433,3 +433,22 @@ NOTE:- The "must_change.env" must require some changes;
    -  `Media Uploads:`
       Update user avatar (profile picture)
       Update cover image (banner)
+
+---
+
+<h3>📅 Day 17</h3>
+
+> _"Note:- You can see the 'day 17.png' image for visual understanding"_
+
+1. **Designing the Subscription Model**
+
+   -  Purpose of the Subscription Model
+   -  Why not use arrays in the User schema
+   -  One subscription per document structure
+   -  Advantages of this Approach
+      <br />
+
+2. **Querying Subscriptions**
+
+   -  Counting a channel’s subscribers
+   -  Listing channels a user has subscribed to
