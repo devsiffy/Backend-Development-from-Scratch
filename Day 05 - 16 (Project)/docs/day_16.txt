@@ -1,0 +1,111 @@
+=====================
+Day 16 - Mega Project
+=====================
+
+This is the 12th day of our mega back-end project. We are building this project by following a real professional development process used in software companies.
+
+
+=======================================
+User Controllers and Subscription Model
+=======================================
+
+Overview
+--------
+
+This note explains two parts of a backend project:
+    * Subscription model in "src/models/subscription.js"
+    * User controllers in "src/controllers/user.controller.js"
+
+These are common in web applications like YouTube, where users can subscribe to other users (channels), and update their profile or account settings.
+
+
+1. Subscription Model
+---------------------
+
+This model is created using Mongoose and MongoDB.
+It allows a user to subscribe to another user (called a channel).
+
+The schema has two main fields:
+    * subscriber → the user who is subscribing
+    * channel → the user who is being subscribed to
+
+Both fields are connected to the User model using ObjectId.
+Also, timestamps are used. This means each subscription has createdAt and updatedAt times.
+This model is useful for apps with user-to-user following or subscription systems.
+
+
+2. User Controllers
+-------------------
+
+These functions help users manage their account and profile.
+All functions are using async/await with error handling.
+Each controller function responds with JSON and a message.
+Here are the main controllers explained below:
+
+
+Change Current Password
+-----------------------
+
+This function lets a user change their password.
+
+Steps:
+    * Get old and new password from request
+    * Check if old password is correct
+    * If correct, save the new password
+    * Send success message
+
+Important point:
+    → If old password is wrong, it throws an error.
+
+
+Get Current User
+----------------
+
+This function gets the details of the current logged-in user.
+
+    * It takes user info from request (already set by middleware)
+    * Returns user data in JSON
+
+Useful for showing profile data after login.
+
+
+Update Account Details
+----------------------
+
+This function lets a user change their full name and email.
+
+Steps:
+    * Check if full name and email are given
+    * Update the user in the database
+    * Do not return the password in the response
+
+Important point:
+    → It uses "$set" to update only specific fields.
+
+
+Update User Avatar
+------------------
+
+This function updates the user's profile picture.
+
+Steps:
+    * Get the avatar file path from request
+    * Upload it to Cloudinary
+    * Save the image URL in the database
+
+Important:
+    → If file is missing or upload fails, it throws an error.
+
+
+Update Cover Image
+------------------
+
+This function updates the user's cover image (like a banner).
+
+It works same as avatar:
+    * Get image from request
+    * Upload to Cloudinary
+    * Save cover image URL in database
+
+Both avatar and cover image are stored as image URLs.
+

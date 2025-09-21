@@ -407,3 +407,29 @@ NOTE:- The "must_change.env" must require some changes;
    -  Validating refresh tokens and issuing new tokens
    -  Security practices: HttpOnly cookies, database checks
    -  Frontend behavior on token expiration
+
+---
+
+<h3>📅 Day 16</h3>
+
+> _"Building a scalable backend by following real-world development practices."_
+
+1. **Subscription Model**
+
+   -  Mongoose schema for user-to-user subscriptions
+   -  Fields: `subscriber`, `channel` (both linked to User model)
+   -  Includes timestamps for creation and updates
+      <br />
+
+2. **User Account Management**
+
+   -  `Password Management:`
+      Change current password with verification
+
+   -  `Profile Information:`
+      Get current logged-in user details
+      Update full name and email (excluding password)
+
+   -  `Media Uploads:`
+      Update user avatar (profile picture)
+      Update cover image (banner)
