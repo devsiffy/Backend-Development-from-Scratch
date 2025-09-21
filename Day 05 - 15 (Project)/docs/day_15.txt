@@ -1,0 +1,145 @@
+=====================
+Day 15 - Mega Project
+=====================
+
+This is the 11th day of our mega back-end project. We are building this project by following a real professional development process used in software companies.
+
+
+===============================
+Testing Login and Logout Routes
+===============================
+
+Using POSTMAN
+--------------
+
+To test the "/login" and "/logout" routes, we use a tool called POSTMAN.
+POSTMAN helps us send requests to our backend and check if the API is working correctly.
+
+* First, start your backend server.
+* Open POSTMAN.
+
+For "/login" route:
+    - Use POST method.
+    - URL: http://localhost:PORT/api/v1/users/login
+    - Send JSON in body like:
+        {
+            "username": "testuser",
+            "password": "123456"
+        }
+
+    - If login is successful, you will get:
+        * status 200
+        * accessToken and refreshToken in cookies
+        * user details in JSON response
+
+For "/logout" route:
+    - Use POST method.
+    - URL: http://localhost:PORT/api/v1/users/logout
+    - Make sure to send the accessToken in cookies.
+    - If logout is successful, you will get:
+        * status 200
+        * cookies cleared
+
+
+===============================
+Fixing Bugs in Login Controller
+===============================
+
+Common Bugs
+--------------
+
+Sometimes, login may fail due to:
+* Missing username or email
+* Wrong password
+* User not found
+* Token not generated
+
+Always make sure:
+The request body has correct fields:
+    * username or email
+    * password
+
+Use async/await properly.
+Handle errors using try-catch or asyncHandler.
+Never send password or refreshToken back to the frontend.
+
+
+=============================
+Access Token vs Refresh Token
+=============================
+
+What is Access Token?
+---------------------
+
+* Access Token is a short-lived token.
+* It is used to access secure APIs.
+* Usually expires in 15 mins or less.
+* Stored in browser cookies or localStorage.
+
+
+What is Refresh Token?
+----------------------
+
+* Refresh Token is a long-lived token.
+* It is used to get a new access token when it expires.
+* Also stored in cookies or localStorage.
+* Never share it with frontend directly.
+* Used only when access token is expired.
+
+
+Main Differences
+----------------
+
+| Feature         | Access Token           | Refresh Token            |
+|-----------------|------------------------|--------------------------|
+| Lifetime        | Short (15 mins)        | Long (days or weeks)     |
+| Purpose         | Access API             | Get new access token     |
+| Sent to server  | With every request     | Only during refresh      |
+| Stored in       | Cookies/localStorage   | Cookies/localStorage     |
+| Security        | More secure if short   | Must be protected        |
+
+
+How They Work Together
+----------------------
+
+→ User logs in → Backend sends accessToken and refreshToken in cookies.
+→ Access token is used in normal requests.
+→ When access token expires, frontend sends refresh token to backend.
+→ Backend checks refresh token → If valid, sends new access token.
+→ This helps in keeping user logged in without asking password again.
+
+
+===================
+Refresh Token Route
+===================
+
+Route: /refresh-token
+---------------------
+
+This route is used to refresh access token when it is expired.
+It takes refreshToken from cookies or request body.
+It verifies the refreshToken.
+
+If valid:
+    * Generates new accessToken and refreshToken.
+    * Sends them in cookies.
+
+If not valid:
+    * Sends 401 Unauthorized error.
+
+
+Important Points
+----------------
+
+* Always keep refresh token in HttpOnly cookies.
+* Never send refresh token to frontend JavaScript.
+* Always check if refresh token matches the one stored in database.
+
+
+When Frontend Uses It?
+----------------------
+
+* When access token expires and API returns 401 error.
+* Frontend can automatically call "/refresh-token" route.
+* After getting new token, it retries the original request.
+

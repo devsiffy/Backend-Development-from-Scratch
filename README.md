@@ -373,3 +373,37 @@ NOTE:- The "must_change.env" must require some changes;
 3. **Security Middleware**
    -  `verifyJWT` Middleware for Protected Routes
    -  Token Validation via Cookies or Headers
+
+---
+
+<h3>📅 Day 15</h3>
+
+> _"Simulating a real-world back-end development process used in professional software companies."_
+
+1. **Authentication Route Testing**
+
+   -  Testing `/login` and `/logout` using POSTMAN
+   -  Expected request structure and responses
+   -  Cookie handling for tokens
+      <br />
+
+2. **Login Controller Debugging**
+
+   -  Common login issues (missing fields, invalid credentials, etc.)
+   -  Proper use of async/await and error handling
+   -  Security tips: avoid exposing sensitive data
+      <br />
+
+3. **Token-Based Authentication**
+
+   -  Access Token: purpose, lifespan, and usage
+   -  Refresh Token: role in session management and renewal
+   -  Key differences between access and refresh tokens
+   -  How both tokens work together in maintaining user sessions
+      <br />
+
+4. **Refresh Token Implementation**
+   -  `/refresh-token` route functionality
+   -  Validating refresh tokens and issuing new tokens
+   -  Security practices: HttpOnly cookies, database checks
+   -  Frontend behavior on token expiration
