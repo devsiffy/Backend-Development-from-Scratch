@@ -1,0 +1,167 @@
+=====================
+Day 21 - Mega Project
+=====================
+
+This is the 17th day of our mega back-end project. We are building this project by following a real professional development process used in software companies.
+
+
+=======================
+Testing and Route Setup
+=======================
+
+
+Postman Testing
+--------------
+
+Before writing any code for new routes or controllers, we tested all the existing user routes using "Postman".
+
+    * Postman helps us check if our API is working or not.
+    * We sent requests like GET, POST, PATCH, DELETE to each user route.
+    * This helped us find and fix small bugs in our user routes.
+
+Now, user routes are tested and working fine. So we will not touch them again for now.
+
+
+Creating Routes and Controllers for Other Features
+--------------------------------------------------
+
+After testing the user routes, we started creating the "routes and controllers" for other features.
+
+These features are:
+    * Tweet
+    * Subscription
+    * Video
+    * Comment
+    * Like
+    * Playlist
+    * Dashboard
+
+We only created the "route files" and "controller files" with empty methods.  
+No actual logic (functionality) was added yet. We just exported the methods.
+
+This helps us:
+    * Plan the structure of the project.
+    * Avoid errors when importing/exporting.
+    * Start coding feature-by-feature in the next steps.
+
+
+====================
+Route Files Overview
+====================
+
+Each route file uses:
+    * Router from Express
+    * Controller functions (even if they are empty)
+    * Middleware (verifyJWT) to protect private routes
+
+All route files are inside:  
+    src/routes/
+
+
+Common Pattern
+--------------
+
+Almost every route file follows the same pattern:
+    * Import express Router
+    * Import controller functions
+    * Import middleware (verifyJWT)
+    * Apply verifyJWT middleware globally in the route
+    * Define all routes using router.route()
+    * Export the router
+
+
+Defined Route Files
+-------------------
+
+    * tweet.route.js
+    * video.route.js
+    * comment.route.js
+    * like.route.js
+    * playlist.route.js
+    * subscription.route.js
+    * dashboard.route.js
+
+Each file includes the proper REST API routes like:
+    → GET for fetching
+    → POST for creating
+    → PATCH for updating
+    → DELETE for deleting
+
+
+=========================
+Controller Files Overview
+=========================
+
+Each controller file contains "empty functions".  
+These functions are exported but have no logic yet.
+This allows the server to run without crashing while we are still writing functionality.
+
+
+Common Setup
+------------
+
+Inside each controller:
+    * All functions are written using asyncHandler.
+    * Basic request data is taken from req.params or req.body.
+    * Each function has a simple comment like:
+        // TASK: do something
+
+
+Defined Controllers
+-------------------
+
+    * tweet.controller.js
+    * video.controller.js
+    * comment.controller.js
+    * like.controller.js
+    * playlist.controller.js
+    * subscription.controller.js
+    * dashboard.controller.js
+
+Each file exports only the needed functions.
+
+====================
+Route + Controller Map
+====================
+
+This shows which route uses which controller:
+
+    | Feature       | Route File              | Controller File              |
+    |---------------|-------------------------|------------------------------|
+    | User          | user.route.js           | user.controller.js           |
+    | Tweet         | tweet.route.js          | tweet.controller.js          |
+    | Subscription  | subscription.route.js   | subscription.controller.js   |
+    | Video         | video.route.js          | video.controller.js          |
+    | Comment       | comment.route.js        | comment.controller.js        |
+    | Like          | like.route.js           | like.controller.js           |
+    | Playlist      | playlist.route.js       | playlist.controller.js       |
+    | Dashboard     | dashboard.route.js      | dashboard.controller.js      |
+
+User route is already tested. All other routes are created with empty logic.
+
+
+===================
+Route URL Structure
+===================
+
+All routes are set in the main app.js file like this:
+    app.use("/api/v1/routeName", routeFile)
+
+Example:
+    → /api/v1/users → userRouter
+    → /api/v1/tweets → tweetRouter
+    → /api/v1/comments → commentRouter
+
+This makes the project more organized and easier to maintain.
+
+
+============
+What’s Next?
+============
+
+Now, the structure is ready. Next steps:
+    * Start adding real logic to controller functions.
+    * Test each feature after writing its logic.
+    * Handle errors using try-catch or asyncHandler.
+    * Send response using standard ApiResponse format.
+

@@ -520,3 +520,32 @@ NOTE:- The "must_change.env" must require some changes;
    -  `Playlist` Model - name, description, videos, owner
 
    -  `Tweet` Model - content, owner
+
+---
+
+<h3>📅 Day 21</h3>
+
+> _Simple structure, clear steps, professional workflow._
+
+1. **User Routes Tested**
+
+   -  Tested all `user routes` using `Postman`
+   -  Fixed small bugs
+   -  Now user routes are working perfectly
+      <br />
+
+2. **Routes & Controllers Setup**
+
+   -  All routes defined in `app.js`
+   -  Created routes in `src/routes/` for:
+      -  tweet, video, comment, like, playlist, subscription, dashboard
+   -  Created controllers in `src/controllers/` with:
+      -  Empty methods
+      -  `// TASK:` comments showing what logic to add later
+         <br />
+
+3. **What Do Next**
+
+   -  Add real logic inside controller methods
+   -  Test each route using Postman
+   -  Make sure everything works correctly
