@@ -1,0 +1,135 @@
+=====================
+Day 19 - Mega Project
+=====================
+
+This is the 15th day of our mega back-end project. We are building this project by following a real professional development process used in software companies.
+
+
+============================
+Get Watch History Controller
+============================
+
+What is it?
+-----------
+
+This controller is used to get the watch history of a logged-in user.
+It shows all the videos the user has watched. It also includes some basic info about the video owner.
+We use MongoDB's "aggregation pipeline" to join data from the "users" and "videos" collections.
+
+
+How it works (Step by Step)
+---------------------------
+
+Step 1: We get the current user's ID from the request.
+Step 2: We find the user from the "users" collection using `$match`.
+
+Step 3: We use `$lookup` to join the "videos" collection:
+    → We match all videos that are in the user's `watchHistory` array.
+    → This gives us full video data.
+
+Step 4: Inside the video lookup, we again use `$lookup` to join the "users" collection (again):
+    → This time to get the "owner" of each video.
+    → We only select `fullName`, `username`, and `avatar` of the owner using `$project`.
+
+Step 5: We use `$addFields` to replace the `owner` array with just one object.
+    → This makes the final data simple.
+
+Step 6: We return the user's watch history as the response.
+
+
+Example Output
+--------------
+
+User's watch history may look like this:
+    [
+        {
+            title: "Intro to Backend",
+            owner: {
+                fullName: "John Doe",
+                username: "johndoe",
+                avatar: "cloudinary-url"
+            }
+        },
+        {
+            title: "Learn MongoDB",
+            owner: {
+                fullName: "Jane Smith",
+                username: "janesmith",
+                avatar: "cloudinary-url"
+            }
+        }
+    ]
+
+
+=======================
+Routes in user.route.js  
+=======================
+
+Route Structure
+---------------
+
+We define all user-related routes in this file.
+Each route connects to a function (controller) in `user.controller.js`.
+Some routes are "public" (like register or login). Some are "protected", which need JWT token.
+
+
+How JWT Protection Works
+------------------------
+
+We use `verifyJWT` middleware to protect routes.
+    → This checks if the user is logged in.
+    → If not, it blocks the request.
+
+All watch history, update profile, and similar routes are protected.
+
+
+File: user.route.js
+-------------------
+
+Here are some examples of routes and what they do:
+
+    POST /register
+        → Creates a new user with avatar and cover image (uses multer)
+
+    POST /login
+        → Logs in the user
+
+    POST /logout
+        → Logs out the user (protected route)
+
+    GET /current-user
+        → Gets data of currently logged-in user
+
+    PATCH /update-account
+        → Updates user profile
+
+    PATCH /avatar
+        → Updates profile picture
+
+    PATCH /cover-image
+        → Updates cover image
+
+    GET /c/:username
+        → Gets another user's public channel profile
+
+    GET /history
+        → Gets watch history (uses getWatchHistory controller)
+
+
+Important Middlewares
+---------------------
+
+`upload` → For handling file uploads (like avatar and cover image)
+`verifyJWT` → To protect routes that require login
+
+
+How Routes Are Linked to Controllers
+------------------------------------
+
+Each route calls a function from `user.controller.js`, for example:
+    GET /history → getWatchHistory
+    POST /register → registerUser
+    PATCH /avatar → updateUserAvatar
+
+This helps keep code organized and easy to manage.
+

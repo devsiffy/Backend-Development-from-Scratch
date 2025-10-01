@@ -480,3 +480,27 @@ NOTE:- The "must_change.env" must require some changes;
    -  `$in` – Check if value exists in array
    -  `$cond` – If-then-else logic
    -  `$size`, `$eq`, `$and`, `$or`
+
+---
+
+<h3>📅 Day 19</h3>
+
+> _"Building real-world back-end features, step by step, like a pro."_
+
+1. **Watch History Feature**
+
+   -  Defining `getWatchHistory` controller
+   -  MongoDB Aggregation Pipeline usage
+   -  Step-by-step data retrieval and joining
+      <br />
+
+2. **User Routes & Structure**
+
+   -  Defining routes for controllers
+   -  Public Routes: `/register`, `/login`
+   -  Protected Routes: `/logout`, `/history`, `/update-account`, etc.
+      <br />
+
+3. **Route Protection & Middleware**
+   -  JWT authentication using `verifyJWT`
+   -  File upload handling with `upload` middleware
