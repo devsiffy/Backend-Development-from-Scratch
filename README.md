@@ -452,3 +452,31 @@ NOTE:- The "must_change.env" must require some changes;
 
    -  Counting a channel’s subscribers
    -  Listing channels a user has subscribed to
+
+---
+
+<h3>📅 Day 18</h3>
+
+> _"Building real-world features using professional backend practices."_
+
+1. **MongoDB Aggregation Pipeline**
+
+   -  What is Aggregation Pipeline
+   -  Why and when to use it
+   -  Benefits for complex data querying
+      <br />
+
+2. **Aggregation Stages**
+
+   -  `$match` – Filter documents
+   -  `$lookup` – Join collections
+   -  `$addFields` – Add or modify fields
+   -  `$project` – Select specific fields
+   -  `$sort`, `$limit`, `$group`, `$unwind`
+      <br />
+
+3. **Common Operators**
+
+   -  `$in` – Check if value exists in array
+   -  `$cond` – If-then-else logic
+   -  `$size`, `$eq`, `$and`, `$or`

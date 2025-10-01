@@ -1,0 +1,181 @@
+=====================
+Day 18 - Mega Project
+=====================
+
+This is the 14th day of our mega back-end project. We are building this project by following a real professional development process used in software companies.
+
+
+===============================
+Aggregation Pipeline in MongoDB
+===============================
+
+What is Aggregation Pipeline
+----------------------------
+
+Aggregation pipeline is a way in MongoDB to process and change data from collections.
+We use it to filter, join, group, count, and transform data.
+It works like a pipeline. Data goes from one stage to another stage.
+Each stage does one task and passes the result to the next stage.
+We use aggregation pipeline to build complex queries in simple steps.
+
+
+Why We Use Aggregation Pipeline
+-------------------------------
+
+    * To get related data from other collections using $lookup
+    * To count or calculate values like total subscribers
+    * To filter documents based on conditions
+    * To add new fields or change existing fields
+    * To get only selected fields using $project
+
+It helps to write clean and powerful database queries, especially when data is connected in different collections.
+
+
+==============================
+Stages in Aggregation Pipeline
+==============================
+
+Aggregation pipeline has many stages. Each stage does a specific job.
+
+Some common stages:
+    * $match → filters the documents (like WHERE in SQL)
+    * $lookup → joins data from another collection
+    * $addFields → adds or updates fields in documents
+    * $project → selects which fields to return
+    * $sort → sorts the documents
+    * $limit → limits number of results
+    * $group → groups documents by some field
+    * $unwind → breaks arrays into separate documents
+
+
+=================================
+Operators in Aggregation Pipeline
+=================================
+
+Operators are used inside stages to perform actions.
+
+Some commonly used operators:
+    * $in → checks if a value exists in an array
+    * $cond → if-then-else logic
+    * $size → gets the size of an array
+    * $eq → checks if two values are equal
+    * $and, $or → logical operators
+
+
+================================
+Important Operators Used in Code
+================================
+
+$match
+------
+
+$match is used to filter documents.
+It works like WHERE condition in SQL.
+
+Example:
+    Match user where username is "john"
+    {
+        $match: {
+            username: "john"
+        }
+    }
+
+
+$lookup
+-------
+
+$lookup is used to join data from another collection.
+It is like JOIN in SQL.
+
+Example: Join Subscription collection to get subscribers
+    {
+        $lookup: {
+            from: "subscriptions",
+            localField: "_id",
+            foreignField: "channel",
+            as: "subscribers"
+        }
+    }
+
+→ This will find all documents in "subscriptions" where "channel" is equal to user's _id.
+
+
+$addFields
+----------
+
+$addFields is used to create new fields or update existing ones.
+
+Example:
+    {
+        $addFields: {
+            subscriberCount: { $size: "$subscribers" }
+        }
+    }
+
+→ This will add a new field called "subscriberCount" and set its value to length of "subscribers" array.
+
+
+$cond (if - then - else)
+------------------------
+
+$cond is used for conditional logic.
+It works like if-else in programming.
+
+Example:
+    {
+        $cond: {
+            if: { $in: [currentUserId, "$subscribers.subscriber"] },
+            then: true,
+            else: false
+        }
+    }
+
+→ It checks if current user is in the list of subscribers. If yes, return true, else false.
+
+
+$in
+---
+
+$in is used to check if a value exists inside an array.
+
+Example:
+    {
+        $in: [userId, "$subscribers.subscriber"]
+    }
+
+→ It returns true if userId is present in subscribers list.
+
+
+$project
+--------
+
+$project is used to choose which fields to return.
+
+Example:
+    {
+        $project: {
+            fullName: 1,
+            username: 1,
+            email: 1
+        }
+    }
+
+→ Only these fields will be returned in the final result.
+
+
+========================
+Get User Channel Profile
+========================
+
+We want to show user profile with extra details.
+
+Example fields:
+    * fullName
+    * username
+    * avatar
+    * coverImage
+    * email
+    * subscriberCount → how many users subscribed to this user
+    * channelsSubscribedToCount → how many channels this user subscribed to
+    * isSubscribed → if the logged-in user is subscribed to this user
+
