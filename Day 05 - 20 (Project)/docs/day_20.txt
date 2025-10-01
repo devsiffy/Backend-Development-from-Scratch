@@ -1,0 +1,91 @@
+=====================
+Day 20 - Mega Project
+=====================
+
+This is the 16th day of our mega back-end project. We are building this project by following a real professional development process used in software companies.
+
+
+=================
+Models in Backend
+=================
+
+
+Created More Models
+-------------------
+
+We created more models given below:
+    * Comment model
+    * Like model
+    * Tweet model
+    * Playlist model
+
+
+Comment Model
+-------------
+
+Used to store comments made by users on a video.
+
+Fields in comment model:
+    → content (required text)
+    → video (reference to a Video)
+    → owner (reference to a User)
+
+Uses timestamps:
+    → Adds createdAt and updatedAt fields automatically.
+
+Uses a plugin:
+    → mongooseAggregatePaginate helps in pagination for large data sets.
+
+
+Like Model
+----------
+
+Like model is used to store likes.
+
+One user can like a:
+    → video
+    → comment
+    → tweet
+
+Fields in like model:
+    → video (optional)
+    → comment (optional)
+    → tweet (optional)
+    → likedBy (required, reference to User)
+
+Design note:
+    → Only one of video, comment, or tweet will be liked at a time.
+    → But all are optional, so you must handle this logic in code.
+
+Also uses timestamps.
+
+
+Playlist Model
+--------------
+
+Used to store user playlists with multiple videos.
+
+Fields in playlist model:
+    → name (required string)
+    → description (required string)
+    → videos (array of Video references)
+    → owner (reference to User who created it)
+
+Good for features like:
+    → Save videos in a list
+    → Share playlists with others
+
+Also uses timestamps.
+
+
+Tweet Model
+-----------
+
+Used to store simple text-based posts.
+
+Fields in tweet model:
+    → content (required string)
+    → owner (reference to User)
+
+Also uses timestamps.
+

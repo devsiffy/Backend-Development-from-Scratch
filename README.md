@@ -504,3 +504,19 @@ NOTE:- The "must_change.env" must require some changes;
 3. **Route Protection & Middleware**
    -  JWT authentication using `verifyJWT`
    -  File upload handling with `upload` middleware
+
+---
+
+<h3>📅 Day 20</h3>
+
+> _"Expanding the backend with essential user and content models."_
+
+1. **Created More Models**
+
+   -  `Comment` Model - content, video, owner
+
+   -  `Like` Model - video | comment | tweet, likedBy
+
+   -  `Playlist` Model - name, description, videos, owner
+
+   -  `Tweet` Model - content, owner
